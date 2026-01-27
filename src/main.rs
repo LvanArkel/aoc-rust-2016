@@ -1,16 +1,17 @@
 use std::fs;
 use std::time::Instant;
 
-use aoc_rust_2016::day1::Day1;
 use aoc_rust_2016::AocDay;
+use aoc_rust_2016::day1::Day1;
+use aoc_rust_2016::day2::Day2;
 
 fn main() {
-    let aoc_day = Day1;
+    let aoc_day = Day2;
 
     let filename = aoc_day.filename();
     let contents = fs::read_to_string(filename).unwrap();
 
-    let parsed = aoc_day.parse(contents);
+    let parsed = aoc_day.parse(&contents);
     
     let part1_start = Instant::now();
     let part1 = aoc_day.part1(&parsed);
