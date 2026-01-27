@@ -1,7 +1,6 @@
 use std::collections::HashSet;
 
-use crate::AocDay;
-use crate::utils::direction::Direction;
+use crate::{day::AocDay, utils::direction::Direction};
 
 pub struct Day1;
 
@@ -61,7 +60,7 @@ impl AocDay for Day1 {
 
 #[cfg(test)]
 mod tests {
-    use crate::{AocDay, day1::Day1};
+    use crate::{day::AocDay, day1::Day1};
 
     #[test]
     fn test_part1() {

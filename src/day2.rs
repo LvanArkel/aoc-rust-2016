@@ -1,4 +1,4 @@
-use crate::{AocDay, utils::direction::Direction};
+use crate::{day::AocDay, utils::direction::Direction};
 
 pub struct Day2;
 
@@ -105,7 +105,7 @@ impl AocDay for Day2 {
 
 #[cfg(test)]
 mod tests {
-    use crate::{AocDay, day2::Day2};
+    use crate::{day::AocDay, day2::Day2};
 
     #[test]
     fn test_part1() {
