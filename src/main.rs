@@ -1,7 +1,7 @@
-use aoc_rust_2016::{day::AocDay, day13::Day13};
+use aoc_rust_2016::{day::AocDay, day14::Day14};
 
 fn main() {
-    let aoc_day = Day13;
+    let aoc_day = Day14;
 
     aoc_day.run();
 }
