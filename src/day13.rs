@@ -73,19 +73,19 @@ impl AocDay for Day13 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day13.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.parse().unwrap()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         navigate(*input, (1, 1), (31, 39))
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let start = (1, 1);
         let mut visited = HashSet::new();
         let mut open_set = vec![start];

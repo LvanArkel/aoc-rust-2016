@@ -8,11 +8,11 @@ impl AocDay for Day1 {
     type I = Vec<(char, i32)>;
     type O = i32;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day1.txt"
     }
 
-    fn parse(&self, contents: &str) -> Vec<(char, i32)> {
+    fn parse(contents: &str) -> Vec<(char, i32)> {
         contents.split(", ").map(|segment| {
             let c = segment.chars().nth(0).unwrap();
             println!("{} {}", c, &segment[1..]);
@@ -21,7 +21,7 @@ impl AocDay for Day1 {
         }).collect()
     }
 
-    fn part1(&self, input: &Vec<(char, i32)>) -> i32 {
+    fn part1(input: &Vec<(char, i32)>) -> i32 {
         let (_, position) = input.iter().fold((Direction::North, (0, 0)), |(facing, (x, y)), direction| {
             let new_facing = match direction.0 {
                 'L' => facing.left(),
@@ -34,7 +34,7 @@ impl AocDay for Day1 {
         position.0.abs() + position.1.abs()
     }
 
-    fn part2(&self, input: &Vec<(char, i32)>) -> i32 {
+    fn part2(input: &Vec<(char, i32)>) -> i32 {
         let mut visited: HashSet<(i32, i32)> = HashSet::new();
         let (mut x, mut y) = (0, 0);
         let mut direction = Direction::North;
@@ -64,9 +64,8 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let day1 = Day1;
-        assert_eq!(5, day1.part1(&day1.parse("R2, L3")));
-        assert_eq!(2, day1.part1(&day1.parse("R2, R2, R2")));
-        assert_eq!(12, day1.part1(&day1.parse("R5, L5, R5, R3")));
+        assert_eq!(5, Day1::part1(&Day1::parse("R2, L3")));
+        assert_eq!(2, Day1::part1(&Day1::parse("R2, R2, R2")));
+        assert_eq!(12, Day1::part1(&Day1::parse("R5, L5, R5, R3")));
     }
 }

@@ -12,23 +12,23 @@ impl AocDay for Day7 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day7.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.lines().map(|line| {
             line.to_owned()
         }).collect()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         input.iter()
             .filter(|&line | supports_tls(line))
             .count()
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         input.iter()
             .filter(|&line| supports_ssl(line))
             .count()

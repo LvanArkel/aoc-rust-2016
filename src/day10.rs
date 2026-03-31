@@ -79,11 +79,11 @@ impl AocDay for Day10 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day10.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         let mut max_bots = 0;
         let mut value_lines: Vec<[usize; 2]> = Vec::new();
         let mut bot_lines: Vec<(usize, Bot)> = Vec::new();
@@ -122,11 +122,11 @@ impl AocDay for Day10 {
         (chips, bots)
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         find_bot(&input.0, &input.1, 17, 61)
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let (initial_chips, bots) = input;
         let mut valid_bots: Vec<_> = initial_chips.iter()
             .enumerate()
@@ -188,8 +188,7 @@ bot 1 gives low to output 1 and high to bot 0
 bot 0 gives low to output 2 and high to output 0
 value 2 goes to bot 2"#;
 
-        let day = Day10;
-        let (chips, bots) = day.parse(input);
+        let (chips, bots) = Day10::parse(input);
         assert_eq!(2, find_bot(&chips, &bots, 2, 5));
     }
 }

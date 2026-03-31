@@ -9,15 +9,15 @@ impl AocDay for Day6 {
 
     type O = String;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day6.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.lines().map(|line| line.to_owned()).collect()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let length = input[0].len();
         let mut iterators: Vec<_> = input.iter().map(|line| line.chars()).collect();
         (0..length).map(|_| {
@@ -32,7 +32,7 @@ impl AocDay for Day6 {
         }).collect()
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let length = input[0].len();
         let mut iterators: Vec<_> = input.iter().map(|line| line.chars()).collect();
         (0..length).map(|_| {
@@ -71,8 +71,7 @@ vrdear
 dvrsen
 enarar"#;
 
-        let day = Day6;
-        let parsed = day.parse(test_input);
-        assert_eq!("easter", day.part1(&parsed));
+        let parsed = Day6::parse(test_input);
+        assert_eq!("easter", Day6::part1(&parsed));
     }
 }

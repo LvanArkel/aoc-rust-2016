@@ -14,11 +14,11 @@ impl AocDay for Day3 {
     type I = Vec<(u32, u32, u32)>;
     type O = usize;
     
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day3.txt"
     }
     
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.lines().map(|line| {
             let digits: Vec<_> = line.trim().split_ascii_whitespace().collect();
             assert_eq!(3, digits.len(), "{digits:?}");
@@ -30,11 +30,11 @@ impl AocDay for Day3 {
         }).collect()
     }
     
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         input.iter().filter(|&tri| Day3::is_triangle(tri)).count()
     }
     
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         input.chunks(3).flat_map(|tris| {
             [
                 (tris[0].0, tris[1].0, tris[2].0),

@@ -64,11 +64,11 @@ impl AocDay for Day2 {
     type I = Vec<Vec<Direction>>;
     type O = String;
     
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day2.txt"
     }
     
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.lines().map(|line| {
             line.chars().map(|c| {
                 match c {
@@ -82,7 +82,7 @@ impl AocDay for Day2 {
         }).collect()
     }
     
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let mut acc = 0;
         let mut position = (1, 1);
         for moves in input {
@@ -92,7 +92,7 @@ impl AocDay for Day2 {
         acc.to_string()
     }
     
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let mut acc = 0;
         let mut position = (1, 1);
         for moves in input {
@@ -113,9 +113,8 @@ mod tests {
 RRDDD
 LURDL
 UUUUD"#;
-        let day2 = Day2;
-        let parsed = day2.parse(test_input);
-        assert_eq!("1985", day2.part1(&parsed));
+        let parsed = Day2::parse(test_input);
+        assert_eq!("1985", Day2::part1(&parsed));
     }
 
     #[test]
@@ -124,8 +123,7 @@ UUUUD"#;
 RRDDD
 LURDL
 UUUUD"#;
-        let day2 = Day2;
-        let parsed = day2.parse(test_input);
-        assert_eq!("5DB3", day2.part2(&parsed));
+        let parsed = Day2::parse(test_input);
+        assert_eq!("5DB3", Day2::part2(&parsed));
     }
 }

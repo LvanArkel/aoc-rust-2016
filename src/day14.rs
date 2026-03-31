@@ -97,15 +97,15 @@ impl AocDay for Day14 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day14.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.to_owned()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let mut i = 0;
         for _ in 0..64 {
             i = find_next_index_p1(input, i+1);
@@ -113,7 +113,7 @@ impl AocDay for Day14 {
         i
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let mut i = 0;
         for n in 1..=64 {
             i = find_next_index_p2(input, i+1);
@@ -131,8 +131,7 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let day = Day14;
-        assert_eq!(22728, day.part1(&"abc".to_owned()));
+        assert_eq!(22728, Day14::part1(&"abc".to_owned()));
     }
 
     #[test]
@@ -142,7 +141,6 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let day = Day14;
-        assert_eq!(22551, day.part2(&"abc".to_owned()))
+        assert_eq!(22551, Day14::part2(&"abc".to_owned()))
     }
 }

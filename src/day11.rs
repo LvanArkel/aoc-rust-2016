@@ -106,11 +106,11 @@ impl AocDay for Day11 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day11.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         let mut element_cache: HashMap<&str, usize> = HashMap::new();
         let mut get_element_id = |name| {
             match element_cache.get(&name) {
@@ -142,7 +142,7 @@ impl AocDay for Day11 {
         State { elevator: 0, floors }
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let mut initial_state = input.clone();
         let mut open_set = VecDeque::new();
         open_set.push_back(initial_state.clone());
@@ -184,7 +184,7 @@ impl AocDay for Day11 {
         panic!("No solution found");
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let max_element_id = input.floors.iter().flat_map(|floor| {
             floor.iter().map(|device| device.element)
         }).max().unwrap();
@@ -195,7 +195,7 @@ impl AocDay for Day11 {
             Device { element: max_element_id + 1, kind: DeviceType::Generator },
             Device { element: max_element_id + 2, kind: DeviceType::Generator },
         ]);
-        self.part1(&new_input)
+        Self::part1(&new_input)
     }
 }
 
@@ -210,8 +210,7 @@ The fourth floor contains nothing relevant.";
 
     #[test]
     fn test_parsed() {
-        let day = Day11;
-        let parsed = day.parse(test_input);
+        let parsed = Day11::parse(test_input);
         assert_eq!(2, parsed.floors[0].len());
         assert_eq!(1, parsed.floors[1].len());
         assert_eq!(1, parsed.floors[2].len());
@@ -238,8 +237,7 @@ The fourth floor contains nothing relevant.";
 
     #[test]
     fn test_part1() {
-        let day = Day11;
-        let parsed = day.parse(test_input);
-        assert_eq!(11, day.part1(&parsed));
+        let parsed = Day11::parse(test_input);
+        assert_eq!(11, Day11::part1(&parsed));
     }
 }

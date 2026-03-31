@@ -8,7 +8,7 @@ pub struct Day4;
 
 impl Day4 {
     pub fn is_valid_checksum(input: &(String, u32, Vec<char>)) -> bool {
-        let (name, sector_id, checksum) = input;
+        let (name, _, checksum) = input;
         let counts = name.chars()
             .filter(|c| *c != '-')
             .counts();
@@ -38,11 +38,11 @@ impl AocDay for Day4 {
     type I = Vec<(String, u32, Vec<char>)>;
     type O = u32;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day4.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         // "aaaaa-bbb-z-y-x-123[abxyz]"
         contents.lines().map(|line| {
             let (name, rest) = line.rsplit_once('-').unwrap();
@@ -57,14 +57,14 @@ impl AocDay for Day4 {
         }).collect()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         input.iter()
             .filter(|&item| Self::is_valid_checksum(item))
             .map(|item| item.1)
             .sum()
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         for entry in input {
             let decrypted = Self::decrypt(&entry.0, entry.1);
             if decrypted.contains("north") && decrypted.contains("pole") {
@@ -90,7 +90,7 @@ mod tests {
             (false, "totally-real-room-200[decoy]"),
         ];
         for entry in entries {
-            let parsed = Day4.parse(entry.1);
+            let parsed = Day4::parse(entry.1);
             assert_eq!(entry.0, Day4::is_valid_checksum(&parsed[0]), "{:?}", entry);
         }
     }

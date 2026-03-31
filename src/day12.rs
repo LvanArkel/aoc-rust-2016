@@ -88,11 +88,11 @@ impl AocDay for Day12 {
 
     type O = i32;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day12.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.lines().map(|line| {
             let splitted: Vec<_> = line.split_ascii_whitespace().collect();
             match splitted[0] {
@@ -111,13 +111,13 @@ impl AocDay for Day12 {
         }).collect()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let state = initial_state();
         let state = run_instructions(state, input);
         *state.get(&'a').unwrap()
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let mut state = initial_state();
         state.insert('c', 1);
         let state = run_instructions(state, input);
@@ -131,14 +131,13 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let day = Day12;
         let test_input = r#"cpy 41 a
 inc a
 inc a
 dec a
 jnz a 2
 dec a"#;
-        let parsed = day.parse(test_input);
-        assert_eq!(42, day.part1(&parsed));
+        let parsed = Day12::parse(test_input);
+        assert_eq!(42, Day12::part1(&parsed));
     }
 }

@@ -81,17 +81,17 @@ impl AocDay for Day8 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day8.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.lines().map(|line| {
             Operation::parse(line).unwrap()
         }).collect()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let grid = run_instructions(input);
         grid.into_iter()
             .map(|row| {
@@ -100,7 +100,7 @@ impl AocDay for Day8 {
             .sum()
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         let grid = run_instructions(input);
         for row in grid {
             let line: String = row.iter().map(|c| if *c {'#'} else {'.'}).collect();

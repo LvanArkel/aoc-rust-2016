@@ -36,15 +36,15 @@ impl AocDay for Day9 {
 
     type O = usize;
 
-    fn filename(&self) -> &'static str {
+    fn filename() -> &'static str {
         "input/day9.txt"
     }
 
-    fn parse(&self, contents: &str) -> Self::I {
+    fn parse(contents: &str) -> Self::I {
         contents.to_owned()
     }
 
-    fn part1(&self, input: &Self::I) -> Self::O {
+    fn part1(input: &Self::I) -> Self::O {
         let mut head = 0;
         let mut total = 0;
         for capture in pattern.captures_iter(input) {
@@ -61,7 +61,7 @@ impl AocDay for Day9 {
         total + rest
     }
 
-    fn part2(&self, input: &Self::I) -> Self::O {
+    fn part2(input: &Self::I) -> Self::O {
         part2_recursive(input)
     }
 }
@@ -72,21 +72,19 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let day = Day9;
-        assert_eq!(6, day.part1(&"ADVENT".to_owned()));
-        assert_eq!(7, day.part1(&"A(1x5)BC".to_owned()));
-        assert_eq!(9, day.part1(&"(3x3)XYZ".to_owned()));
-        assert_eq!(11, day.part1(&"A(2x2)BCD(2x2)EFG".to_owned()));
-        assert_eq!(6, day.part1(&"(6x1)(1x3)A".to_owned()));
-        assert_eq!(18, day.part1(&"X(8x2)(3x3)ABCY".to_owned()));
+        assert_eq!(6, Day9::part1(&"ADVENT".to_owned()));
+        assert_eq!(7, Day9::part1(&"A(1x5)BC".to_owned()));
+        assert_eq!(9, Day9::part1(&"(3x3)XYZ".to_owned()));
+        assert_eq!(11, Day9::part1(&"A(2x2)BCD(2x2)EFG".to_owned()));
+        assert_eq!(6, Day9::part1(&"(6x1)(1x3)A".to_owned()));
+        assert_eq!(18, Day9::part1(&"X(8x2)(3x3)ABCY".to_owned()));
     }
 
     #[test]
     fn test_part2() {
-        let day = Day9;
-        assert_eq!(9, day.part2(&"(3x3)XYZ".to_owned()));
-        assert_eq!(20, day.part2(&"X(8x2)(3x3)ABCY".to_owned()));
-        assert_eq!(241920, day.part2(&"(27x12)(20x12)(13x14)(7x10)(1x12)A".to_owned()));
-        assert_eq!(445, day.part2(&"(25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN".to_owned()));
+        assert_eq!(9, Day9::part2(&"(3x3)XYZ".to_owned()));
+        assert_eq!(20, Day9::part2(&"X(8x2)(3x3)ABCY".to_owned()));
+        assert_eq!(241920, Day9::part2(&"(27x12)(20x12)(13x14)(7x10)(1x12)A".to_owned()));
+        assert_eq!(445, Day9::part2(&"(25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN".to_owned()));
     }
 }
