@@ -1,5 +1,5 @@
-use aoc_rust_2016::{day::AocDay, day16::Day16};
+use aoc_rust_2016::{day::AocDay, day17::Day17};
 
 fn main() {
-    Day16::run();
+    Day17::run();
 }
