@@ -42,13 +42,12 @@ impl AocDay for Day19 {
 
     fn part2(input: &Self::I) -> Self::O {
         let mut numbers: VecDeque<usize> = (1..=*input).collect();
-        let progress_bar = ProgressBar::new(*input as u64);
+        // let progress_bar = ProgressBar::new(*input as u64);
         let mut last_i = 0;
         while numbers.len() > 1 {
             let i = (last_i + numbers.len() / 2) % numbers.len();
-            // println!("{numbers:?} [{last_i}] -> {i}");
             numbers.remove(i);
-            progress_bar.inc(1);
+            // progress_bar.inc(1);
             last_i = if last_i == numbers.len() {
                 0
             } else if i < last_i {
@@ -57,7 +56,7 @@ impl AocDay for Day19 {
                 last_i + 1
             };
         }
-        progress_bar.finish();
+        // progress_bar.finish();
         numbers[0]
     }
 }
