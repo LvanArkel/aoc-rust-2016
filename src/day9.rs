@@ -6,10 +6,10 @@ use crate::day::AocDay;
 
 pub struct Day9;
 
-static pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"\((\d+)x(\d+)\)"#).unwrap());
+static PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"\((\d+)x(\d+)\)"#).unwrap());
 
 fn parse_pattern(input: &str) -> (usize, usize, usize) {
-    let capture = pattern.captures(input).unwrap();
+    let capture = PATTERN.captures(input).unwrap();
     let m = capture.get_match();
     let size: usize = capture.get(1).unwrap().as_str().parse().unwrap();
     let amount = capture.get(2).unwrap().as_str().parse().unwrap();
@@ -47,7 +47,7 @@ impl AocDay for Day9 {
     fn part1(input: &Self::I) -> Self::O {
         let mut head = 0;
         let mut total = 0;
-        for capture in pattern.captures_iter(input) {
+        for capture in PATTERN.captures_iter(input) {
             let m = capture.get_match();
             let start = m.start();
             if start < head { continue; }

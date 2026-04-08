@@ -35,18 +35,18 @@ impl AocDay for Day7 {
     }
 }
 
-static pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"(.)(?!\1)(.)\2\1"#).unwrap());
+static PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"(.)(?!\1)(.)\2\1"#).unwrap());
 fn supports_tls(input: &str) -> bool {
     let lbrs: Vec<_> = input.char_indices()
-        .filter(|(i, c)| *c == '[')
-        .map(|(i, c)| i)
+        .filter(|(_, c)| *c == '[')
+        .map(|(i, _)| i)
         .collect();
     let rbrs: Vec<_> = input.char_indices()
-        .filter(|(i, c)| *c == ']')
-        .map(|(i, c)| i)
+        .filter(|(_, c)| *c == ']')
+        .map(|(i, _)| i)
         .collect();
     let brackets: Vec<_> = lbrs.into_iter().zip(rbrs).collect();
-    let matches: Vec<_> = pattern.find_iter(input).collect();
+    let matches: Vec<_> = PATTERN.find_iter(input).collect();
     if matches.is_empty() {
         return false;
     }
@@ -56,9 +56,9 @@ fn supports_tls(input: &str) -> bool {
     })    
 }
 
-static group_pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"\w+"#).unwrap());
+static GROUP_PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"\w+"#).unwrap());
 fn supports_ssl(input: &str) -> bool {
-    let groups: Vec<_> = group_pattern
+    let groups: Vec<_> = GROUP_PATTERN
         .find_iter(input)
         .map(|m| m.unwrap().as_str())
         .collect();
@@ -92,11 +92,10 @@ fn supports_ssl(input: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use crate::{day::AocDay, day7::{Day7, supports_ssl, supports_tls}};
+    use crate::day7::{Day7, supports_ssl, supports_tls};
 
     #[test]
     fn test_supports_tls() {
-        let day = Day7;
         assert!(supports_tls(&"abba[mnop]qrst"));
         assert!(!supports_tls(&"abcd[bddb]xyyx"));
         assert!(!supports_tls(&"aaaa[qwer]tyui"));
@@ -105,7 +104,6 @@ mod tests {
 
     #[test]
     fn test_supports_ssl() {
-        let day = Day7;
         assert!(supports_ssl(&"aba[bab]xyz"));
         assert!(!supports_ssl(&"xyx[xyx]xyx"));
         assert!(supports_ssl(&"aaa[kek]eke"));

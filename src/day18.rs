@@ -22,7 +22,7 @@ fn iterate(row: Vec<bool>) -> Vec<bool> {
 fn find_safe_tiles(first_row: &Vec<bool>, rows: usize) -> usize {
     let mut total = 0;
     let mut row = first_row.clone();
-    for i in 0..rows {
+    for _ in 0..rows {
         total += row.iter().filter(|v| !(**v)).count();
         row = iterate(row);
     }

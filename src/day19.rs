@@ -1,7 +1,5 @@
-use core::num;
 use std::collections::VecDeque;
 
-use indicatif::ProgressBar;
 
 use crate::day::AocDay;
 
@@ -24,7 +22,7 @@ impl AocDay for Day19 {
         let mut numbers: Vec<_> = (1..=*input).collect();
         let mut keep_index = 0;
         while numbers.len() > 1 {
-            let mut should_keep_next = keep_index == (numbers.len() % 2);
+            let should_keep_next = keep_index == (numbers.len() % 2);
             numbers = numbers
                 .into_iter()
                 .enumerate()

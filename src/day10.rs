@@ -1,5 +1,5 @@
 use core::panic;
-use std::{collections::HashMap, sync::LazyLock};
+use std::sync::LazyLock;
 
 use itertools::Itertools;
 use regex::Regex;
@@ -8,10 +8,10 @@ use crate::{day::AocDay, utils::regex::capture_get_usize};
 
 pub struct Day10;
 
-static value_pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(
+static VALUE_PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(
     r#"value (\d+) goes to bot (\d+)"#
 ).unwrap());
-static bot_pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(
+static BOT_PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(
     r#"bot (\d+) gives low to (bot \d+|output \d+) and high to (bot \d+|output \d+)"#
 ).unwrap());
 
@@ -88,11 +88,11 @@ impl AocDay for Day10 {
         let mut value_lines: Vec<[usize; 2]> = Vec::new();
         let mut bot_lines: Vec<(usize, Bot)> = Vec::new();
         for line in contents.lines() {
-            if let Some(capture) = value_pattern.captures(line) {
+            if let Some(capture) = VALUE_PATTERN.captures(line) {
                 let value = capture_get_usize(&capture, 1);
                 let bot = capture_get_usize(&capture, 2);
                 value_lines.push([value, bot]);
-            } else if let Some(capture) = bot_pattern.captures(line) {
+            } else if let Some(capture) = BOT_PATTERN.captures(line) {
                 let bot = capture_get_usize(&capture, 1);
                 let low_str = capture.get(2).unwrap().as_str().split_once(" ").unwrap();
                 let low = match low_str.0 {

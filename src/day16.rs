@@ -1,7 +1,5 @@
 use std::iter::once;
 
-use itertools::Itertools;
-
 use crate::day::AocDay;
 
 pub struct Day16;
@@ -30,12 +28,6 @@ fn generate_checksum(sequence: Vec<bool>) -> Vec<bool> {
         }).collect();
     }
     accumulator
-}
-
-fn to_int(checksum: Vec<bool>) -> usize {
-    checksum.iter().fold(0, |acc, b| {
-        acc * 2 + if *b { 1 } else { 0 }
-    })
 }
 
 fn to_value(checksum: Vec<bool>) -> String {

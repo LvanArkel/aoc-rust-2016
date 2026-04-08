@@ -1,7 +1,6 @@
 use std::sync::LazyLock;
 
 use fancy_regex::Regex;
-use itertools::Itertools;
 
 use crate::day::AocDay;
 
@@ -11,23 +10,23 @@ pub enum Operation {
     RotateCol { col: usize, amount: usize },
 }
 
-static rect_pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"rect (\d+)x(\d+)"#).unwrap());
-static rotate_row_pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"rotate row y=(\d+) by (\d+)"#).unwrap());
-static rotate_column_pattern: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"rotate column x=(\d+) by (\d+)"#).unwrap());
+static RECT_PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"rect (\d+)x(\d+)"#).unwrap());
+static ROTATE_ROW_PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"rotate row y=(\d+) by (\d+)"#).unwrap());
+static ROTATE_COLUMN_PATTERN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"rotate column x=(\d+) by (\d+)"#).unwrap());
 
 impl Operation {
     fn parse(input: &str) -> Result<Operation, String> {
-        if let Some(cap) = rect_pattern.captures(input).unwrap() {
+        if let Some(cap) = RECT_PATTERN.captures(input).unwrap() {
             let cols = cap.get(1).unwrap().as_str().parse().unwrap();
             let rows = cap.get(2).unwrap().as_str().parse().unwrap();
             return Ok(Operation::Rect { rows, cols })
         }
-        if let Some(cap) = rotate_row_pattern.captures(input).unwrap() {
+        if let Some(cap) = ROTATE_ROW_PATTERN.captures(input).unwrap() {
             let row = cap.get(1).unwrap().as_str().parse().unwrap();
             let amount = cap.get(2).unwrap().as_str().parse().unwrap();
             return Ok(Operation::RotateRow { row, amount })
         }
-        if let Some(cap) = rotate_column_pattern.captures(input).unwrap() {
+        if let Some(cap) = ROTATE_COLUMN_PATTERN.captures(input).unwrap() {
             let col = cap.get(1).unwrap().as_str().parse().unwrap();
             let amount = cap.get(2).unwrap().as_str().parse().unwrap();
             return Ok(Operation::RotateCol { col, amount })

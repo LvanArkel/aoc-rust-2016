@@ -2,7 +2,7 @@ use std::{collections::{HashMap, HashSet, VecDeque}, sync::LazyLock, usize};
 
 use std::fmt::Debug;
 use indicatif::{ProgressBar, ProgressStyle};
-use itertools::{Itertools, max};
+use itertools::Itertools;
 use regex::Regex;
 
 use crate::day::AocDay;
@@ -39,10 +39,6 @@ pub struct State {
 impl State {
     fn is_done(&self) -> bool {
         return self.floors[0].is_empty() && self.floors[1].is_empty() && self.floors[2].is_empty()
-    }
-
-    fn best_cost(&self) -> usize {
-        return self.floors[0].len() * 3 + self.floors[1].len() * 2 + self.floors[2].len()
     }
 
     fn valid_state(&self) -> bool {
@@ -143,7 +139,7 @@ impl AocDay for Day11 {
     }
 
     fn part1(input: &Self::I) -> Self::O {
-        let mut initial_state = input.clone();
+        let initial_state = input.clone();
         let mut open_set = VecDeque::new();
         open_set.push_back(initial_state.clone());
         let mut visited: HashSet<State> = HashSet::new();
@@ -203,14 +199,14 @@ impl AocDay for Day11 {
 mod tests {
     use crate::{day::AocDay, day11::{Day11, Device, State}};
 
-    const test_input: &str = "The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.
+    const TEST_INPUT: &str = "The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.
 The second floor contains a hydrogen generator.
 The third floor contains a lithium generator.
 The fourth floor contains nothing relevant.";
 
     #[test]
     fn test_parsed() {
-        let parsed = Day11::parse(test_input);
+        let parsed = Day11::parse(TEST_INPUT);
         assert_eq!(2, parsed.floors[0].len());
         assert_eq!(1, parsed.floors[1].len());
         assert_eq!(1, parsed.floors[2].len());
@@ -237,7 +233,7 @@ The fourth floor contains nothing relevant.";
 
     #[test]
     fn test_part1() {
-        let parsed = Day11::parse(test_input);
+        let parsed = Day11::parse(TEST_INPUT);
         assert_eq!(11, Day11::part1(&parsed));
     }
 }

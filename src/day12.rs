@@ -36,14 +36,7 @@ fn initial_state() -> State {
 fn run_instructions(state: State, instructions: &Vec<Instruction>) -> State {
     let mut state = state;
     let mut program_counter = 0;
-
-    let lookup = |value: &Value| {
-        match value {
-            Value::Register(r) => state[r],
-            Value::Constant(v) => *v,
-        }
-    };
-
+    
     while let Some(instruction) = instructions.get(program_counter) {
         match instruction {
             Instruction::Cpy { src, dst } => {
