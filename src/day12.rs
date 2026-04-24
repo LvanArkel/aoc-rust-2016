@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use crate::day::AocDay;
 
+#[derive(Clone, Copy)]
 pub enum Value {
     Register(char),
     Constant(i32)
@@ -17,10 +18,11 @@ impl Value {
 }
 
 pub enum Instruction {
-    Cpy{ src: Value, dst: char },
+    Cpy{ src: Value, dst: Value },
     Inc(char),
     Dec(char),
     Jnz{ test: Value, offset: Value },
+    Tgl(char),
 }
 
 type State = HashMap<char, i32>;
@@ -40,12 +42,14 @@ fn run_instructions(state: State, instructions: &Vec<Instruction>) -> State {
     while let Some(instruction) = instructions.get(program_counter) {
         match instruction {
             Instruction::Cpy { src, dst } => {
-                let value = match src {
-                    Value::Register(r) => state[r],
-                    Value::Constant(v) => *v,
-                };
-                state.insert(*dst, value);
-                program_counter += 1;
+                if let Value::Register(dst) = dst{
+                    let value = match src {
+                        Value::Register(r) => state[r],
+                        Value::Constant(v) => *v,
+                    };
+                    state.insert(*dst, value);
+                    program_counter += 1;
+                }
             },
             Instruction::Inc(reg) => {
                 state.insert(*reg, state[reg] + 1);
@@ -70,6 +74,7 @@ fn run_instructions(state: State, instructions: &Vec<Instruction>) -> State {
                     program_counter = program_counter.strict_add_signed(off as isize);
                 }
             },
+            Instruction::Tgl(_) => {}, // Not supported for Day 12
         }
     }
     state
@@ -91,7 +96,7 @@ impl AocDay for Day12 {
             match splitted[0] {
                 "cpy" => Instruction::Cpy { 
                     src: Value::parse(splitted[1]),
-                    dst: splitted[2].chars().nth(0).unwrap()
+                    dst: Value::parse(splitted[2])
                 },
                 "jnz" => Instruction::Jnz { 
                     test: Value::parse(splitted[1]),
@@ -99,6 +104,7 @@ impl AocDay for Day12 {
                 },
                 "inc" => Instruction::Inc(splitted[1].chars().nth(0).unwrap()),
                 "dec" => Instruction::Dec(splitted[1].chars().nth(0).unwrap()),
+                "tgl" => Instruction::Tgl(splitted[1].chars().nth(0).unwrap()),
                 _ => panic!("Unknown opcode {}", splitted[0])
             }
         }).collect()
