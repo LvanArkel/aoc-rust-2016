@@ -15,7 +15,11 @@ pub trait AocDay {
         let filename = Self::filename();
         let contents = fs::read_to_string(filename).unwrap();
 
+        let parse_start = Instant::now();
         let parsed = Self::parse(&contents);
+        let parse_end = Instant::now();
+        let parse_duration = parse_end - parse_start;
+        println!("Parsing took ({parse_duration:?})");
         
         let part1_start = Instant::now();
         let part1 = Self::part1(&parsed);
